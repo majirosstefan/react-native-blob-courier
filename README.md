@@ -3,7 +3,7 @@
 [![License: MPL 2.0](https://img.shields.io/badge/License-MPL%202.0-brightgreen.svg)](https://opensource.org/licenses/MPL-2.0)
 [![Build](https://github.com/edeckers/react-native-blob-courier/workflows/Build%20Android%20and%20iOS/badge.svg)](https://github.com/edeckers/react-native-blob-courier/actions)
 
-Use this library to efficiently _download_ and _upload_ blobs in React Native. The library was inspired by [rn-fetch-blob](https://github.com/joltup/rn-fetch-blob), and aims to focus strictly on blob transfers.
+Use this library to efficiently _download_ and _upload_ blobs in React Native. The library was inspired by the discontinued [rn-fetch-blob](https://github.com/joltup/rn-fetch-blob) and deals strictly with blob transfers, ommiting the file system management functionality the former library also facilitates.
 
 ## Installation
 
@@ -121,7 +121,7 @@ const request2 = {
   url: 'https://file.io',
 };
 
-const multipartUploadResult = await BlobCourier.uploadBlob(request1);
+const multipartUploadResult = await BlobCourier.uploadBlob(request2);
 
 console.log(multipartUploadResult):
 // {
@@ -240,7 +240,7 @@ Object.keys({
 // ['1', '2', '3', 'b', 'c', 'a']
 ```
 
-The way to work around this, is to wrap _all_ keys in a `Symbol`, by using `Symbol.for`. Do not use `Symbol(<value>)`, this will not work, e.g.:
+The way to work around this, is to wrap _all_ keys in a `Symbol`, by using `Symbol.for`. Do not use `Symbol(<value>)`, this will not work because React Native only has a [global symbol registry](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol#shared_symbols_in_the_global_symbol_registry), e.g.:
 
 ```tsx
 Object.getOwnPropertySymbols({
